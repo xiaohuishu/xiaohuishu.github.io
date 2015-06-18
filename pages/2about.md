@@ -7,17 +7,17 @@ icon: glyphicon-heart
 
 ### 关于我
 
-> 2015年8月开始准备要进入实习的浪潮,希望从事于java开发工作。 
+> 2015年8月开始准备要进入实习的浪潮,希望从事于java开发工作 
 
-就读于江西农业大学软件工程12级。
+就读于江西农业大学软件工程12级
 
 兴趣比较广泛：现在主要方向在于java开发，对于python也有着浓厚的兴趣(PS:正在努力学习中)
 
-喜爱旅行：现已去过的地方：丽江,厦门。
+喜爱旅行：现已去过的地方：丽江,厦门
 
-下一步旅行计划：希望进行一次西藏之旅。
+下一步旅行计划：希望进行一次西藏之旅
 
-特别喜欢起风了(宫崎骏)中的一句话：起风了,应该努力生存.
+特别喜欢起风了(宫崎骏)中的一句话：起风了,应该努力生存
 
 ---
 
@@ -28,8 +28,6 @@ icon: glyphicon-heart
 * QQ：1148240286
 * Weibo：[Haoyang](http://weibo.com/3115521wh)
 * 知乎：[Gaohaoyang](http://www.zhihu.com/people/gaohaoyang)
-* 豆瓣：[Gaohaoyang](http://www.douban.com/people/42525035/)
-* 豆瓣音乐人：[浩阳的小站](http://site.douban.com/haoyangaiyinyue/)
-*
+
 ---
 
