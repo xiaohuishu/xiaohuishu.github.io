@@ -8,9 +8,7 @@ categories: Git
 * content
 {:toc}
 
-## Git常用命令
-
-### 简介
+## 简介
 
 Git是一个分布式版本控制系统,在此介绍Git基本常用命令
 
