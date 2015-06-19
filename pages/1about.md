@@ -26,8 +26,7 @@ icon: glyphicon-heart
 * email：[shuxiaohui1105@gmail.com](mailto:{{ site.email }})
 * Github:[xiaohuishu](https://github.com/xiaohuishu)
 * QQ：1148240286
-* Weibo：[Haoyang](http://weibo.com/3115521wh)
-* 知乎：[Gaohaoyang](http://www.zhihu.com/people/gaohaoyang)
+* Weibo：[尽力了蚂蚁](http://weibo.com/antsmarch)
 
 ---
 
