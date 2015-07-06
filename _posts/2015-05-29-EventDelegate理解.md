@@ -62,36 +62,35 @@ C#编译器为我们做如下工作：
 * 4.BusManager类需要一个方法来处理公交车发生故障
 * 5.需要自定义一个事件参数类型BusEventArgs,里面有Bus的编号等基本信息
 	
+	
 	//实现代码,我是用Java来写的伪代码;
-
 	//声明委托(公交车处理)
 	public void delegate BusHandler(Object sender,EventArgs e);
-
 	//新建一个公交车事件参数,接收公交车编号
 	public BusEventArgs extends EventArgs{
 		//busID编号
 		private String busId;
 	 	
 		public BusEventArgs(String busId){
-	 		this.busId = busId;
-	 	}
-	
+			this.busId = busId;
+		}
+
 		public String getBusId(){
-	 		return this.busId;
-	 	}
-	 }
-	 //公交车实体类
-	 public class Bus{
-	 	
+			return this.busId;
+		}
+	}
+	//公交车实体类
+	public class Bus{
+
 		private String busId;
 	 	
 		public void setBusId(String busId){
-	 		this.busId = busId;
-	 	}	
+			this.busId = busId;
+		}	
 	 	
 		public String getBusId(){
 			return this.busId;
-	 	}
+		}
 	 	//声明公交车事故处理事件
 	 	public event BusHandler busFailCause;
 	 		//公交车产生事故方法,调用事故事件
