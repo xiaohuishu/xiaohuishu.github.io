@@ -62,7 +62,8 @@ C#编译器为我们做如下工作：
 * 4.BusManager类需要一个方法来处理公交车发生故障
 * 5.需要自定义一个事件参数类型BusEventArgs,里面有Bus的编号等基本信息
 
-	//实现代码,我是用Java来写的伪代码;
+实现代码,我是用Java来写的伪代码;
+	
 	//声明委托(公交车处理)
 	public void delegate BusHandler(Object sender,EventArgs e);
 	//新建一个公交车事件参数,接收公交车编号
@@ -78,10 +79,8 @@ C#编译器为我们做如下工作：
 			return this.busId;
 		}
 	}
-
 	//公交车实体类
 	public class Bus{
-
 		private String busId;
 	 	
 		public void setBusId(String busId){
@@ -103,23 +102,24 @@ C#编译器为我们做如下工作：
 				}
 	 		}
 	 	}
-	 	//公交车处理中心类
-	 	public class BusManager{
-	 		public void BusFailHandler(Object sender,EventArgs e){
-	 			System.out.println("编号：" + e.busId + "公交车出现故障,现准备处理")
-	 		}
-	 	}
-	 	//客户端测试类
-	 	public class Client{
-	 		public static void main(String []args){
-	 			Bus bus = new Bus();
-	 			bus.setBusId("GB1212");
-	 			BusManager manager = new BusManager();
-	 			//绑定委托方法到公交车处理中心处理方法
-				bus.busFailCause += new BusHandler(manager.BusFailHandler)；
-	 			bus.failCause();
-	 		}
-	 	}
+	｝
+	//公交车处理中心类
+	public class BusManager{
+		public void BusFailHandler(Object sender,EventArgs e){
+			System.out.println("编号：" + e.busId + "公交车出现故障,现准备处理")
+		}
+	}
+	//客户端测试类
+	public class Client{
+		public static void main(String []args){
+			Bus bus = new Bus();
+			bus.setBusId("GB1212");
+			BusManager manager = new BusManager();
+			//绑定委托方法到公交车处理中心处理方法
+			bus.busFailCause += new BusHandler(manager.BusFailHandler)；
+			bus.failCause();
+		}
+	}
 
 #### Java对比实现
 
