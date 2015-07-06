@@ -13,9 +13,9 @@ icon: glyphicon-heart
 
 兴趣比较广泛：现在主要方向在于java开发，对于python也有着浓厚的兴趣(PS:正在努力学习中)
 
-喜爱旅行：现已去过的地方：丽江,厦门
+喜爱旅行
 
-下一步旅行计划：希望进行一次西藏之旅
+下一步旅行计划：进行一次西藏之旅
 
 特别喜欢起风了(宫崎骏)中的一句话：起风了,应该努力生存
 
@@ -23,7 +23,7 @@ icon: glyphicon-heart
 
 ### 联系我
 
-* email：[shuxiaohui1105@gmail.com](mailto:{{ site.email }})
+* Email：[shuxiaohui1105@gmail.com](mailto:{{ site.email }})
 * Github: [xiaohuishu](https://github.com/xiaohuishu)
 * QQ：1148240286
 * Weibo：[尽力了蚂蚁](http://weibo.com/antsmarch)
