@@ -178,7 +178,7 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 
 最后Tomcat中JSP热部署机制时序图所示：
 
-![13050408499760](http://www.linuxidc.com/upload/2013_05/13050408499760.png)
+![13050408499760](http://xiaohuishu.net/static/post_image/jsphotswap.png)
 
 ## 2.自定义实现热部署机制
 	
