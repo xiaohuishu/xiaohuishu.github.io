@@ -102,7 +102,7 @@ C#编译器为我们做如下工作：
 				}
 	 		}
 	 	}
-	｝
+	}
 	//公交车处理中心类
 	public class BusManager{
 		public void BusFailHandler(Object sender,EventArgs e){
