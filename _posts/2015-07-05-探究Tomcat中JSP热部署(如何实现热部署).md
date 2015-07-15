@@ -48,7 +48,7 @@ categories: Tomcat
 
 找到tomcat-trunk/java/org/apache/jasper/servlet/JspServlet类
 JspServlet类继承HttpServlet类,重写service(request, response)方法,这个方法负责处理客户请求;
-
+	
 	public void service(HttpServletRequest request, HttpServletResponse response){
 		
 		.......
@@ -61,7 +61,9 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 		.......
 	}
 	
-	private void serviceJspFile(HttpServletRequest request,HttpServletResponse response, String jspUri,boolean precompile){
+	private void serviceJspFile(HttpServletRequest request,
+				HttpServletResponse response, String jspUri,
+				boolean precompile){
 		......
 		JspServletWrapper wrapper = rctxt.getWrapper(jspUri);
 		if(wrapper == null){
