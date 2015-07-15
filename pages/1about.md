@@ -13,7 +13,7 @@ icon: glyphicon-heart
 
 兴趣比较广泛：现在主要方向在于Java开发，对于Python也有着浓厚的兴趣(PS:正在努力学习中)
 
-喜爱旅行
+拥有一颗走遍天下的心
 
 下一步旅行计划：进行一次西藏之旅
 
@@ -27,6 +27,8 @@ icon: glyphicon-heart
 * Github: [xiaohuishu](https://github.com/xiaohuishu)
 * QQ：1148240286
 * Weibo：[尽力了蚂蚁](http://weibo.com/antsmarch)
+* 知乎: [March Shu](http://www.zhihu.com/people/march-shu)
 
 ---
+
 
