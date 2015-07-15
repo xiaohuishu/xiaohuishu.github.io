@@ -61,9 +61,7 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 		.......
 	}
 	
-	private void serviceJspFile(HttpServletRequest request,
-				 HttpServletResponse response, String jspUri,
-				boolean precompile){
+	private void serviceJspFile(HttpServletRequest request,HttpServletResponse response, String jspUri,boolean precompile){
 		......
 		JspServletWrapper wrapper = rctxt.getWrapper(jspUri);
 		if(wrapper == null){

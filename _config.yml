@@ -12,7 +12,6 @@ url: "http://xiaohuishu.net" # the base hostname & protocol for your site
 # twitter_username: jekyllrb
 github_username:  xiaohuishu
 permalink: /:year/:month/:day/:title/
-
 # Build settings
 markdown: kramdown
 
