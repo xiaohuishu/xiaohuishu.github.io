@@ -60,7 +60,9 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 		serviceJspFile(request,response,jspUri,precompile);
 		.......
 	}
-	
+
+找到serviceJspFile方法:
+
 	private void serviceJspFile(HttpServletRequest request,
 				HttpServletResponse response, String jspUri,
 				boolean precompile){
