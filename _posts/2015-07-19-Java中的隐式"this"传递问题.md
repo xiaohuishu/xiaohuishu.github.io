@@ -1,0 +1,290 @@
+---
+layout: post
+title: "Java中的隐式"this"传递问题"
+date: 2015-07-19
+categories: Java
+---
+
+* content
+{:toc}
+
+## this
+
+含义: 当前对象的引用
+
+用法:
+
+* 1.返回当前对象的引用
+
+	public Test getInstance(){
+		return this;
+	}
+
+* 2.在构造方法中调用另一个重载的构造方法
+
+	public Test(){
+		this("this is this invoke");
+	}
+
+	public Test(String name){
+		System.out.println(name);
+	}
+
+* 3.区分同名的成员变量与参数变量
+
+	public void setName(String name){
+		this.name = name;
+	}
+
+### "this逃逸"
+
+#### 什么叫"this逃逸"?
+
+> 是指在构造函数返回之前内部类对象或者其他线程就持有该对象的引用,调用尚未构造完全的对象的方法可能引发令人疑惑的错误
+
+举个实例来分析：
+	
+	//定义一个单一方法接口
+	public interface SingleMethod {
+
+		void doSomething();
+	}
+	//测试类	
+	public class ThisEscape {
+		
+		/**
+		 * 构造方法：实例化匿名实现接口类对象,回调接口方法
+		 * 输出匿名类当前this对象和显式调用外部类this对象
+		 */
+		public ThisEscape() {
+			//匿名类,回调
+			new SingleMethod() {
+				public void doSomething(){
+					System.out.println(this);
+					System.out.println(ThisEscape.this);		
+				}
+			}.doSomething();
+			//输出本身this对象
+			System.out.println(this);
+			//实例化静态内部类
+			new innerClass();
+		}
+		//定义一个内部类
+		static class innerClass {
+			//在构造方法中输出当前本身对象
+			public innerClass() {
+				System.out.println(this);
+			}
+		}
+		//主方法
+		public static void main(String [] args){
+			//实例化测试类
+			ThisEscape escape = new ThisEscape();
+		}
+	}
+
+最后输出结果如下:
+	
+	//匿名类
+	cn.march.inner.ThisEscape$1@19e0bfd
+	//主类
+	cn.march.inner.ThisEscape@139a55
+	cn.march.inner.ThisEscape@139a55
+	//静态内部类
+	cn.march.inner.ThisEscape$innerClass@1db9742
+	cn.march.inner.ThisEscape@139a55
+
+写这个代码主要我想分析一下,this指针是怎么样在内部类中隐式传递;
+通过这个输出我们基本可以了解编译后生成了3个类分别是:
+
+* 1.ThisEscape 主类
+* 2.ThisEscape$1 匿名内部类
+* 3.ThisEscape$innerClass 内部类
+
+通过javap命令查看.class文件结构如下：
+	
+	//匿名内部类,隐式接收this对象
+	class ThisEscape$1 implements SingleMethod {
+		
+		final ThisEscape this$0;
+
+		ThisEscape$1(ThisEscape thisescape) {
+			this$0 = thisescape;
+			super();
+		}
+
+		public void doSomething(){
+			System.out.println(this);
+			System.out.println(this$0);
+		}
+	}
+	//普通内部类
+	class ThisEscape$innerClass {
+		
+		ThisEscape$innerClass(){
+			System.out.println(this);	
+		}
+	}
+	
+	//其实最后分析可以知道,ThisEscape构造方法如下：
+	public class ThisEscape {
+		//构造方法
+		ThisEscape(){
+			//实例化匿名内部类,将主类本身this对象作为参数传递
+			new ThisEscape$1(this);
+			System.out.println(this);
+			//实例化静态内部类
+			new ThisEscape$innerClass();
+		}		
+	}
+
+由上面代码分析我们可以得到一个结论：
+
+#### “this逃逸”总结
+
+> 普通内部类,不会有隐式外部类this对象的传递问题;
+
+> 对于匿名内部类,我们可以从最后的class字节码可以看出,在进行实例化类时会隐式的将外部类的this对象参数传递
+
+> 所以,"this逃逸"指的就是在构造方法使用匿名内部类过程中,内部类对象持有该外部对象的引用,当内部类代码执行的时候，外部类对象的创建过程很有可能还没结束，这个时候如果内部类访问外部类中的数据，很有可能得到还没有正确初始化的数据
+
+#### 解析"通过继承父类的公有方法访问父类的私有属性"
+
+我们都知道,在Java中私有属性不能被继承,但是我们可以通过继承父类的公有方法访问父类的私有属性;
+	
+	//将父类定义为抽象类
+	public abstract class ParentField {
+		private String field;
+	
+		public ParentField() {
+			System.out.println("parentField class init...");
+			System.out.println(this);
+		}		
+		
+		/*
+		 * field属性的getter和setter方法
+		 */
+		public void setField(String field) {
+			this.field = field;
+		}
+
+		public String getField() {
+			return this.field;
+		}
+
+	}
+	//子类
+	public class ChildTest extends ParentField{
+
+		public ChildTest() {
+			System.out.println("child class init...");
+			System.out.println(this);
+		}
+
+		public static void main(String [] args) {
+			ParentField childTest = new ChildTest();
+
+			childTest.setField("test");
+
+			System.out.println(childTest.getField());
+		}
+	}
+	运行结果如下：
+		parentField class init...
+		cn.march.inner.ChildTest@19e0bfd
+		child class init...
+		cn.march.inner.ChildTest@19e0bfd
+		test
+
+子类继承父类,在实例化默认隐式调用父类构造方法:super();
+我们在ParentField构造方法中输出this(代表当前对象),输出cn.march.inner.ChildTest@19e0bfd代表是子类对象
+但是由于this代表ChildTest类对象,而ChildTest继承ParentField,field属性在ParentField类中声明为private
+在setField(String field)中是如何通过this.field拿到field属性呢？
+
+我们利用javap -verbose ParentField.class查看其字节码：
+我们关注如下几行：
+
+Constant Pool:
+
+	#5 = Utf8               field
+	#6 = Utf8               Ljava/lang/String;
+
+
+
+在ParentField类中的常量池中可以看到有field属性;
+而我查看ChildTest类中Constant Pool并没有field,说明子类中不会存在父类属性(无论是公有还是私有)的拷贝或者说引用
+
+还有一点,如果field被声明为public则在字节码,则我们可以查看到:
+
+	public java.lang.String field1;
+	descriptor: Ljava/lang/String;
+	flags: ACC_PUBLIC
+
+说明这个field的访问权限是PUBLIC,能被所有继承它的类,实例化对象访问;
+
+但是field是私有的,所以在子类中我们不能通过this.field来访问父类的field属性(若field属性是公有或者保护的则没问题)
+
+但是在父类中,我们可以通过this.field来访问field属性;
+
+我的理解就是：
+
+> Java应该有中机制,当父类属性声明为private私有,则在父类作用域中可以直接访问私有属性,一旦超过父类作用域,不能访问;
+
+所以我认为 这应该叫伪继承,实际子类依旧能够访问private私有属性,只是不同的作用域权限不同;
+
+### 匿名类的诟病
+
+首先来简单的讲一下匿名类的诟病;
+
+在Java8之前,我在学Swing的时候,感觉特别不爽的地方就在于添加事件监听;
+如果我们做一个C/S客户端,基本的增删改查的页面,我要为每一个按钮添加重复的事件监听代码(虽然处理调用的业务逻辑不一致);
+这样代码,无论是从可阅读性,代码质量上来讲都是值得我们研究如何去优化(参考[委托](http://xiaohuishu.net/2015/05/29/EventDelegate%E7%90%86%E8%A7%A3/))
+
+然后一点就是,我在上面讲到的作用域;
+举个例子：
+	//定义一个抽象类
+	abstract class AbstractClass {
+		abstract void print();
+	}
+	//测试类
+	public class Client {
+		
+		public void testNonClass() {
+
+			final String final_variable = "test";			
+
+			new AbstractClass(){
+				public void print(){
+					System.out.println(final_variable);
+				}
+			}.print();
+
+		}
+	}
+
+这时候调用testNonClass()输出的肯定是test;
+但是如果这时我修改AbstractClass
+
+	abstract class AbstractClass {
+		protected String final_variable = "abstract test";
+		abstract void print();
+	}
+
+这时候输出的却是abstract test;
+
+为什么?
+
+首先我们观察上面程序,为什么匿名内部类使用变量为什么需要声明为final?参考[为什么匿名内部类和局部内部类只能访问final变量](http://blog.csdn.net/zhaoyw2008/article/details/9565219)
+
+> 局部变量的生命周期与局部内部类的对象的生命周期的不一致性!
+
+设方法f被调用,从而在它的调用栈中生成了变量i,此时产生了一个局部内部类对象inner_object,它访问了该局部变量i.
+当方法f()运行结束后,局部变量i就已死亡了,不存在了.
+但:局部内部类对象inner_object还可能一直存在(只能没有人再引用该对象时,它才会死亡),它不会随着方法f()运行结束死亡.
+这时:出现了一个"荒唐"结果:局部内部类对象inner_object要访问一个已不存在的局部变量i!
+
+那为什么会出现这种结果:
+
+> 词法作用域,因为AbstractClass匿名类使用final_variable变量,优先级不一致
+
+详情参考[匿名类型的硬伤](http://blog.zhaojie.me/2011/06/java-anonymous-method-closure-scope-this.html)
