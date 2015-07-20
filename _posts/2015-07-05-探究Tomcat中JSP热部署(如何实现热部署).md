@@ -20,7 +20,6 @@ categories: Tomcat
 
 查看conf/web.xml中的配置：
 
-```xml
 	<servlet>
 		<servlet-name>jsp</servlet-name>
 		<servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
@@ -39,7 +38,7 @@ categories: Tomcat
 		<servlet-name>jsp</servlet-name>
 		<url-pattern>*.jsp</url-pattern>
 	</servlet-mapping>
-```
+
 我们可以知道,当我们访问所有后缀为".jsp"等请求将会访问JspServlet(功能就是“翻译”JSP并对其实施访问);
 具体conf/web.xml中其他配置或者参数含义详见博文[Tomcat服务器原理详解](http://www.cnblogs.com/mo-wang/p/3705147.html)
 
@@ -49,7 +48,7 @@ categories: Tomcat
 
 找到tomcat-trunk/java/org/apache/jasper/servlet/JspServlet类
 JspServlet类继承HttpServlet类,重写service(request, response)方法,这个方法负责处理客户请求;
-```java	
+
 	public void service(HttpServletRequest request, HttpServletResponse response){
 		
 		.......
@@ -61,9 +60,9 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 		serviceJspFile(request,response,jspUri,precompile);
 		.......
 	}
-```
+
 > 找到serviceJspFile方法:
-```java
+
 	private void serviceJspFile(HttpServletRequest request,
 				HttpServletResponse response, String jspUri,
 				boolean precompile){
@@ -83,9 +82,9 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 		wrapper.service(request, response, precompile);
 		......
 	}
-```
+
 > 我们继续看JspServletWrapper类中service方法：
-```java
+
 	public void service(HttpServletRequest request,
 			  HttpServletResponse response, boolean procompile){
 		
@@ -105,9 +104,9 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 		servlet = getServlet();
 		......
 	}	
-```
+
 > 继续看JspCompilationContext类中compile方法：
-```java	
+
 	public void compile(){
 		//创建编译器
 		createCompile();
@@ -124,9 +123,9 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 			......
 		}		
 	}
-```
+
 > 最后的核心方法Compiler类中的isOutDated(boolean checkClass)方法
-```java
+
 	public boolean isOutDated(boolean checkClass){
 		
 		if (jsw != null
@@ -176,7 +175,7 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
             		return true;
         		}
 	}
-```
+
 > 最后总结：Tomcat热部署就是当Context容器检测JSP发生修改,就会重新新建一个类加载器重新加载JSP文件对应的Servlet;
 
 最后Tomcat中JSP热部署机制时序图所示：
