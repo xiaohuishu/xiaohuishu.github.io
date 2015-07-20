@@ -21,7 +21,6 @@ categories: C#
 委托是一个类,定义了方法的类型
 
 > 具体详解委托机制请参考博文[C#委托机制](http://blog.csdn.net/yap111/article/details/2110544)
-
 > 声明定义一个委托:
 
 	public[protected,private] void delegate CallBack(<参数>);
@@ -59,10 +58,7 @@ C#编译器为我们做如下工作：
 
 > * 1.首先定义两个实体类：1.Bus类 2.BusManager类
 * 2.声明一个Bus处理委托:public void delegate BusHandler(Object sender,EventArgs e);
-* 3.Bus类需要一个事件,当公交车发生故障是会触发这个事件：
-	
-	public event BusHandler busFailCause;
-
+* 3.Bus类需要一个事件,当公交车发生故障是会触发这个事件：event BusHandler busFailCause;
 * 4.BusManager类需要一个方法来处理公交车发生故障
 * 5.需要自定义一个事件参数类型BusEventArgs,里面有Bus的编号等基本信息
 
