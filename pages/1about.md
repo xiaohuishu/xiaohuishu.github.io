@@ -23,12 +23,12 @@ icon: glyphicon-heart
 
 ### 联系我
 
-	| Github   |     [xiaohuishu](https://github.com/xiaohuishu)     |
-	| -------- |     :----:     |
-	| Email    |     [shuxiaohui](mailto:{{ site.email }})     |
-	| QQ       |     1148240286     |
-	| Weibo    |     [尽力了蚂蚁](http://weibo.com/antsmarch)     |
-	| 知乎	  |     [March Shu](http://www.zhihu.com/people/march-shu)     |
+| Github   |     [xiaohuishu](https://github.com/xiaohuishu)     |
+| -------- |     :----:     |
+| Email    |     [shuxiaohui](mailto:{{ site.email }})     |
+| QQ       |     1148240286     |
+| Weibo    |     [尽力了蚂蚁](http://weibo.com/antsmarch)     |
+| 知乎	  |     [March Shu](http://www.zhihu.com/people/march-shu)     |
 
 
 ---
@@ -37,10 +37,7 @@ icon: glyphicon-heart
 
 ---
 
-> <h4>*** 1.江西省出入境检疫局农作物二次发掘系统 ***</h4>
-
->>简介：
-
+<h4>*** 1.江西省出入境检疫局农作物二次发掘系统 ***</h4>
 > * 首先很遗憾,由于诸多原因,此项目并没有托管在Github
 > * 这是我大学里最重要的一个项目,通过将近一年的时间我们才真正的完成此项目
 > * 项目经过1.0,2.0两个版本的开发
@@ -51,10 +48,7 @@ icon: glyphicon-heart
 
 ---
 
-> <h4>*** 2.咨立拍车 ***</h4>
-
->> 简介：
-
+<h4>*** 2.咨立拍车 ***</h4>
 > * 很遗憾的是,这是一个上线项目,但是我们只是完成基本的测试版本
 > * 不过通过这个项目,让我对WebSocket,DWR等Web技术有了一个基础的了解
 
