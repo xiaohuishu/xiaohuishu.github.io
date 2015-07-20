@@ -23,26 +23,27 @@ categories: C#
 > 具体详解委托机制请参考博文[C#委托机制](http://blog.csdn.net/yap111/article/details/2110544)
 
 > 声明定义一个委托:
-
+```c#
 	public[protected,private] void delegate CallBack(<参数>);
-	
+```
 > 委托使用
+```c#
 	//声明自定义委托类型的一个事件
 	public event CallBack listener;
 	
 	//说明绑定一个方法<函数>到listener事件上(listener事件需是用CallBack委托声明)
 	listener += new CallBack(<method(参数<声明委托时的参数>)>);
-
+```
 C#编译器为我们做如下工作：
-
+```
 	1.声明一个类CallBack：
 	2.扩展自System.MulticastDelegate<extends System.MulticastDelegate>
 	3.该类包含一个构造器
 	4.该类包含3个方法：BeginInvoke,EndInvoke，Invoke
-
+```
 那什么是委托？
 
-> 那通俗的来讲,委托是用来执行方法<函数>的.再仔细分析一下上面的代码.当listener事件触发时,由于你将method方法绑定到该事件,所以会调用method方法,所以委托可以将方法当作另一个方法的参数来进行传递
+> * 那通俗的来讲,委托是用来执行方法<函数>的.再仔细分析一下上面的代码.当listener事件触发时,由于你将method方法绑定到该事件,所以会调用method方法,所以委托可以将方法当作另一个方法的参数来进行传递
 
 比如：平常我们做公交车,如果公交车<每个公交车都有个唯一标识的ID>发生故障了,需要报告给公交车管理中心.
 
@@ -56,14 +57,14 @@ C#编译器为我们做如下工作：
 
 首先思考一个实现思路：
 
-* 1.首先定义两个实体类：1.Bus类 2.BusManager类
+> * 1.首先定义两个实体类：1.Bus类 2.BusManager类
 * 2.声明一个Bus处理委托:public void delegate BusHandler(Object sender,EventArgs e);
 * 3.Bus类需要一个事件,当公交车发生故障是会触发这个事件：public event BusHandler busFailCause;
 * 4.BusManager类需要一个方法来处理公交车发生故障
 * 5.需要自定义一个事件参数类型BusEventArgs,里面有Bus的编号等基本信息
 
 实现代码,我是用Java来写的伪代码;
-	
+```java	
 	//声明委托(公交车处理)
 	public void delegate BusHandler(Object sender,EventArgs e);
 	//新建一个公交车事件参数,接收公交车编号
@@ -120,9 +121,9 @@ C#编译器为我们做如下工作：
 			bus.failCause();
 		}
 	}
-
+```
 #### Java对比实现
-
+```java
 	//函数接口,当公交车发生事故时,调用该方法
 	public interface BusFailManager {
 	 		
@@ -167,14 +168,16 @@ C#编译器为我们做如下工作：
 			});
 		}
 	}		
-
+```
 ## 总结
 
-> 就事件处理来讲,Java在JDK8以前做的并不够好,尤其是令人恶心的Java Swing中的事件监听(为组件添加事件监听)
+> * 就事件处理来讲,Java在JDK8以前做的并不够好,尤其是令人恶心的Java Swing中的事件监听(为组件添加事件监听)
 	
-> 虽然程序员可以通过反射的来进行抽象封装处理,但是本质依然一样;Java8在这一点上进行了改善引入了lambda表达式(Java8函数式编程);
+> * 虽然程序员可以通过反射的来进行抽象封装处理,但是本质依然一样;Java8在这一点上进行了改善引入了lambda表达式(Java8函数式编程);
 
-> 纵使这样相对C#委托机制来讲,依旧显得不够灵活.在上述例子中：利用委托可以将Bus类与BusManager类完全解耦出来;
+> * 纵使这样相对C#委托机制来讲,依旧显得不够灵活.在上述例子中：利用委托可以将Bus类与BusManager类完全解耦出来;
+
+---
 	
 > 但是在Java8中却需依赖函数接口BusFailManager,去掉了实际上的BusManager.我也曾试过将BusManager用上,但惭愧的是效果既然更差(也可能是没想到真正的好方法)!
   
