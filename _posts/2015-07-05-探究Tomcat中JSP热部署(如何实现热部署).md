@@ -178,13 +178,18 @@ JspServlet类继承HttpServlet类,重写service(request, response)方法,这个�
 
 > 最后总结：Tomcat热部署就是当Context容器检测JSP发生修改,就会重新新建一个类加载器重新加载JSP文件对应的Servlet;
 
-最后Tomcat中JSP热部署机制时序图所示：
+Tomcat中JSP热部署机制时序图所示：
 
 ![13050408499760](http://xiaohuishu.net/static/post_image/jsphotswap.png)
 
+最后贴一个大牛博客中的一张图[Tomcat的热部署的分析](http://www.blogjava.net/heavensay/archive/2013/12/03/389685.html)
+
+<h4>Tomcat加载资源的概况图：</h4>
+
+![tomcat](http://images.blogjava.net/blogjava_net/heavensay/classloader/loadprocess.jpg)
+
 ## 2.自定义实现热部署机制
 	
-### 2.1 仿Tomcat中热部署机制
-	
-### 2.2 动态修改字节码
+参考:
 
+* [探索Java热部署](http://xiaohuishu.net/2015/07/26/%E6%8E%A2%E7%B4%A2Java%E7%83%AD%E9%83%A8%E7%BD%B2/)
