@@ -3,6 +3,7 @@ layout: post
 title: "Git常用命令说明"
 date: 2015-01-22 11:14:55
 categories: Git
+excerpt: 基本的Git命令介绍,待更新...
 ---
 
 * content

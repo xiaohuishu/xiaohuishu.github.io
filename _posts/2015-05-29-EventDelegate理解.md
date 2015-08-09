@@ -3,6 +3,7 @@ layout: post
 title: "探究C#委托机制,对比Java实现"
 date: 2015-05-29
 categories: C#
+excerpt: 什么是委托?对比Java中的事件
 ---
 
 * content

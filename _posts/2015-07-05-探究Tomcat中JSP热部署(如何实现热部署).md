@@ -3,6 +3,7 @@ layout: post
 title: "探究Tomcat中JSP热部署机制"
 date: 2015-07-04
 categories: Tomcat
+excerpt: 修改JSP文件之后为什么不需要重启服务器呢?
 ---
 
 * content
