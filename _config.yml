@@ -14,6 +14,7 @@ github_username:  xiaohuishu
 permalink: /:year/:month/:day/:title/
 # Build settings
 markdown: kramdown
+encoding: utf-8
 
 # highlight
 # 本地用rouge, github上用pygments
