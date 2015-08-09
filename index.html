@@ -19,8 +19,9 @@ layout: default
               <h2>
               {{ post.title }}
               </h2>
-              <span style=" color: #8e8e8e; ">{{post.excerpt}}</span><br>
+              <span style=" color: #8e8e8e; ">{{post.excerpt}}</span>
               <span style=" color: #8e8e8e; float: right;">{{ post.date | date: "%b %-d, %Y" }}</span>
+              <br>
             </a>
           {% endfor %}
         </div>
