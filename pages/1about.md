@@ -35,7 +35,7 @@ icon: glyphicon-heart
 
 ### 推荐书籍
 
-待整理...
+<i class="icon-list"></i>标签：[我的书单](http://xiaohuishu.net/book/booklist.html)
 
 ---
 
