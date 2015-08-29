@@ -101,7 +101,8 @@ sup {
 /* commom */
 body {
     background-image: url(http://7q5cdt.com1.z0.glb.clouddn.com/bg-canvas_bg.jpg);
-    font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+    //font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+    font-family: Tahoma, Arial, Roboto, "Droid Sans", "Helvetica Neue", "Droid Sans Fallback", "Heiti SC", "Hiragino Sans GB", Simsun,sans-self;
 }
 article p{
     /*text-indent: 2em;*/
