@@ -282,11 +282,18 @@ MapReduced的一些问题:
 
 解决方案：[eclipse调试MapReduce失败](http://f.dataguru.cn/thread-403-1-1.html)
 
-### MapReduce博文推荐
+### MapReduce博文书籍推荐
 
-请参考：
+请参考书籍：
+
+> * [Hadoop权威指南](http://book.douban.com/subject/6523762/)
+> * [Hadoop技术内幕V1](http://book.douban.com/subject/24375031/)
+> * [Hadoop技术内幕V2 yarn](http://book.douban.com/subject/25774649/)
+
+请参考博文：
 
 > * [hadoop学习笔记：mapreduce框架详解(夏天的森林)](http://www.cnblogs.com/sharpxiajun/p/3151395.html)
 > * [hadoop资料汇总](http://f.dataguru.cn/thread-403-1-1.html)
 > * [hadoop中使用MapReduce编程实例转](http://eric-gcm.iteye.com/blog/1807468)
 > * [MapReduce原理](http://blog.jobbole.com/84089/)
+
