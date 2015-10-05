@@ -22,6 +22,7 @@ excerpt: MapReduce工作流程
 > 参考[利用Profile构建不同环境的部署包](http://www.cnblogs.com/yjmyzz/p/3941043.html)
 
 所以总结一点：
+
 > 实战，实战，实战，重要的事情说三遍!！！
 
 ## MapReduce
@@ -47,6 +48,7 @@ excerpt: MapReduce工作流程
 传统的思想我们通过IO读取文件进行逻辑处理，串行操作(当然可以通过多线程的方式来进行处理，这里提一下并发与并行)
 
 通过IO读取指定的文件进行分析：
+
 > * 声明一个容器存放单词Word(HashMap<String, Integer>)
 > * 读取文件file*.txt
 > * 读取文件中的一行readLine()，进行分割得到单词Word开始统计加一
@@ -63,7 +65,7 @@ excerpt: MapReduce工作流程
     public static void main(String[] args) throws Exception {
 
 
-	//加载配置信息，Input文件,Output目录
+	    //加载配置信息，Input文件,Output目录
         Configuration conf = new Configuration();
         String[] otherArgs = (new GenericOptionsParser(conf, args)).getRemainingArgs();
         if(otherArgs.length < 2) {
@@ -71,9 +73,9 @@ excerpt: MapReduce工作流程
             System.exit(2);
         }
 
-	//构建一个Job
+	    //构建一个Job
         Job job = Job.getInstance(conf, "word count");
-	//设置Job配置属性：Mapper Reducer, OutputKeyClass, OutputValueClass
+	    //设置Job配置属性：Mapper Reducer, OutputKeyClass, OutputValueClass
         job.setJarByClass(WordCount.class);
         job.setMapperClass(WordCount.TokenizerMapper.class);
         job.setCombinerClass(WordCount.IntSumReducer.class);
@@ -82,16 +84,16 @@ excerpt: MapReduce工作流程
         job.setOutputValueClass(IntWritable.class);
 
 
-	//设置输入文件属性
+	    //设置输入文件属性
         for(int i = 0; i < otherArgs.length - 1; ++i) {
             FileInputFormat.addInputPath(job, new Path(otherArgs[i]));
         }
 
 
-	//设置输出目录
+	    //设置输出目录
         FileOutputFormat.setOutputPath(job, new Path(otherArgs[otherArgs.length - 1]));
         //执行Job
-	System.exit(job.waitForCompletion(true)?0:1);
+	    System.exit(job.waitForCompletion(true)?0:1);
     }
 
 
@@ -101,7 +103,7 @@ excerpt: MapReduce工作流程
 
         public IntSumReducer() {
         }
-	//核心reduce方式完成业务逻辑
+	    //核心reduce方式完成业务逻辑
         public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;
 
@@ -124,7 +126,7 @@ excerpt: MapReduce工作流程
         }
 
 
-	//核心map方式(从输入文件中解析分割单词并初始化数量1)
+	    //核心map方式(从输入文件中解析分割单词并初始化数量1)
         public void map(Object key, Text value, org.apache.hadoop.mapreduce.Mapper.Context context) throws IOException, InterruptedException {
             StringTokenizer itr = new StringTokenizer(value.toString());
 
@@ -138,6 +140,7 @@ excerpt: MapReduce工作流程
 
 先看TokenizerMapper.class
 代码比较简单：
+
 > * 从接收file*.txt读取后的字符串(一行)比如“Hello World”
 > * 开始分割字符串得到单词并初始化单词数量
 > * "Hello" "World" context("Hello", 1)/"World", 1
@@ -145,6 +148,7 @@ excerpt: MapReduce工作流程
 
 然后看IntSumReducer.class
 接收单词key的 键值对：
+
 > * "Hello" 1
 > * "Hello" 1
 > * "Hello" 1
@@ -219,6 +223,7 @@ excerpt: MapReduce工作流程
 > Mapper Reducer都是通过run方法来进行调用，而这个是通过JobClient.runJob(jobconf)来提交submit()job任务之后来进行调度run()
 
 注意里面的setup() cleanup()方法 相当于Servlet中init() destroy()方法
+
 > * 当MapReduce调度的时候执行setup()且执行一次
 > * 当MapReduce结束的时候执行cleanup()执行一次
 > * 所以在setup()完成初始化数据的操作，cleanup()中释放资源操作
@@ -242,6 +247,7 @@ excerpt: MapReduce工作流程
 这个就是对输入文件进行分片操作：
 
 输入分片（input split）：
+
 > * 在进行map计算之前，mapreduce会根据输入文件计算输入分片（input split），每个输入分片（input split）针对一个map任务，输入分片（input split）存储的并非数据本身，而是一个分片长度和一个记录数据的位置的数组
 > * 输入分片（input split）往往和hdfs的block（块）关系很密切，假如我们设定hdfs的块的大小是64mb，如果我们输入有三个文件，大小分别是3mb、65mb和127mb，那么mapreduce会把3mb文件分为一个输入分片（input split），65mb则是两个输入分片（input split）而127mb也是两个输入分片（input split），换句话说我们如果在map计算前做输入分片调整，例如合并小文件，那么就会有5个map任务将执行，而且每个map执行的数据大小不均，这个也是mapreduce优化计算的一个关键点
 
@@ -249,7 +255,7 @@ excerpt: MapReduce工作流程
 
 shuffle阶段：
 
-将map的输出作为reduce的输入的过程就是shuffle了，这个是mapreduce优化的重点地方。这里我不讲怎么优化shuffle阶段，讲讲shuffle阶段的原理，因为大部分的书籍里都没讲清楚shuffle阶段。
+将map的输出作为reduce的输入的过程就是shuffle了，这个是mapreduce优化的重点地方
 
 > * Shuffle一开始就是map阶段做输出操作，一般mapreduce计算的都是海量数据，map输出时候不可能把所有文件都放到内存操作，因此map写入磁盘的过程十分的复杂，更何况map输出时候要对结果进行排序，内存开销是很大的
 > * map在做输出时候会在内存里开启一个环形内存缓冲区，这个缓冲区专门用来输出的，默认大小是100mb，并且在配置文件里为这个缓冲区设定了一个阀值，默认是0.80（这个大小和阀值都是可以在配置文件里进行配置的），同时map还会为输出操作启动一个守护线程，如果缓冲区的内存达到了阀值的80%时候，这个守护线程就会把内容写到磁盘上，这个过程叫spill
@@ -259,6 +265,7 @@ shuffle阶段：
 > * 到了reduce阶段就是合并map输出文件了，Partitioner会找到对应的map输出文件，然后进行复制操作，复制操作时reduce会开启几个复制线程，这些线程默认个数是5个，程序员也可以在配置文件更改复制线程的个数，这个复制过程和map写入磁盘过程类似，也有阀值和内存大小，阀值一样可以在配置文件里配置，而内存大小是直接使用reduce的tasktracker的内存大小，复制时候reduce还会进行排序操作和合并文件操作，这些操作完了就会进行reduce计算了。
 
 3.最后一个问题MapReduce发生了什么(如何运行的)？
+
 > * 首先是客户端要编写好mapreduce程序，配置好mapreduce的作业也就是job，接下来就是提交job了
 > * 提交job是提交到JobTracker上的，这个时候JobTracker就会构建这个job，具体就是分配一个新的job任务的ID值，接下来它会做检查操作，这个检查就是确定输出目录是否存在，如果存在那么job就不能正常运行下去，JobTracker会抛出错误给客户端，接下来还要检查输入目录是否存在，如果不存在同样抛出错误
 > * 如果存在JobTracker会根据输入计算输入分片（Input Split），如果分片计算不出来也会抛出错误，至于输入分片我后面会做讲解的，这些都做好了JobTracker就会配置Job需要的资源了
@@ -267,6 +274,7 @@ shuffle阶段：
 > * 任务分配好后就是执行任务了。在任务执行时候jobtracker可以通过心跳机制监控tasktracker的状态和进度，同时也能计算出整个job的状态和进度，而tasktracker也可以本地监控自己的状态和进度。当jobtracker获得了最后一个完成指定任务的tasktracker操作成功的通知时候，jobtracker会把整个job状态置为成功，然后当客户端查询job运行状态时候（注意：这个是异步操作），客户端会查到job完成的通知的。如果job中途失败，mapreduce也会有相应机制处理，一般而言如果不是程序员程序本身有bug，mapreduce错误处理机制都能保证提交的job能正常完成
 
 MapReduced的一些问题: 
+
 > * 1.在大数据量的情况下可以设置setCombinerClass(Reducer.class)来减少Reducer输入的数据太多
 > * 2.MapReduce中的单点问题
 > * 3.MapReduce Hbase
@@ -277,6 +285,7 @@ MapReduced的一些问题:
 ### MapReduce博文推荐
 
 请参考：
+
 > * [hadoop学习笔记：mapreduce框架详解(夏天的森林)](http://www.cnblogs.com/sharpxiajun/p/3151395.html)
 > * [hadoop资料汇总](http://f.dataguru.cn/thread-403-1-1.html)
 > * [hadoop中使用MapReduce编程实例转](http://eric-gcm.iteye.com/blog/1807468)
