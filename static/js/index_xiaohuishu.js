@@ -13,7 +13,7 @@ GitHubWidget = function (options) {
 	options = options || this.defaultConfig;
 
 	this.$template = document.getElementById(template);
-	this.user = options.userName || this.$template.dataset.username;
+	this.user = "xiaohuishu";
 
 	this.url = {
 		api: "https://api.github.com/users/xiaohuishu",
