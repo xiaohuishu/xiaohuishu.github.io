@@ -15,9 +15,6 @@
 	<!-- <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/fontawesome/4.2.0/css/font-awesome.min.css"> -->
 	<!-- <link rel="stylesheet" type="text/css" href="{{"/static/css/bootstrap.min.css" | prepend: site.baseurl }}"> -->
 	
-    <link rel="stylesheet" type="text/css" href="{{ "/static/css/normalize_xiaohuishu.css" | prepend: site.baseurl }}">   
-     <link rel="stylesheet" type="text/css" href="{{ "/static/css/style_xiaohuishu.css" | prepend: site.baseurl }}">   
-  
 
 	<link rel="stylesheet" type="text/css" href="{{ "/static/css/index.css" | prepend: site.baseurl }}">
 	
@@ -28,7 +25,6 @@
 	<script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 	<script type="text/javascript" src="{{"/static/js/index.js" | prepend:site.baseurl}}"></script>
-	<script type="text/javascript" src="{{"/static/js/index_xiaohuishu.js" | prepend:site.baseurl}}"></script>
 
 	<link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/highlight.js/8.4/styles/monokai_sublime.min.css">
 	<!-- <link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/highlight.js/8.4/styles/railscasts.min.css"> -->
