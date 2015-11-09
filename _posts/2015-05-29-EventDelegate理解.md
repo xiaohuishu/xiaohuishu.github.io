@@ -93,15 +93,14 @@ C#编译器为我们做如下工作：
 		}
 	 	//声明公交车事故处理事件
 	 	public event BusHandler busFailCause;
-	 		//公交车产生事故方法,调用事故事件
-	 		public void failCause(){
-	 			if(busFailCause == null){
-					System.out.println("事件未绑定.");
-	 			}else{
-	 				BusEventArgs eventArgs = new BusEventArgs(this.busId);
-					busFailCause(this,eventArgs);
-				}
-	 		}
+	 	//公交车产生事故方法,调用事故事件
+	 	public void failCause(){
+	 		if(busFailCause == null){
+				System.out.println("事件未绑定.");
+	 		}else{
+	 			BusEventArgs eventArgs = new BusEventArgs(this.busId);
+				busFailCause(this,eventArgs);
+		    }
 	 	}
 	}
 	//公交车处理中心类
