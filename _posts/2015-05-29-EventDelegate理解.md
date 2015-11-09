@@ -154,13 +154,13 @@ C#编译器为我们做如下工作：
 			Bus bus = new Bus();
 			
 			bus.setBusId("GB13435");
-		    	／*直接可以传入Lambda表达式作为BusFailManager对象 
+		    	/**直接可以传入Lambda表达式作为BusFailManager对象 
 			 * 因为BusFailManager接口中只有一个方法声明(允许存在default方法,但
 			 *只能存在一个方法声明@FunctionInterface)
 			*/
 			bus.busFailProcess((busId) -> {
 				if(busId == null){
-				System.out.println("有公交车发生事故,请检查并及时处理！");
+				    System.out.println("有公交车发生事故,请检查并及时处理！");
 				}else{
 					System.out.println("编号: " + busId + "公交车发生事故,请及时处理！");
 				}
