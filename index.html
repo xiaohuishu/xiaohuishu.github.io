@@ -39,7 +39,7 @@ layout: default
                         {% elsif page == 1 %}
                         <a href="{{ '/index.html' | prepend: site.baseurl | replace: '//', '/'  }}">{{ page  }}</a>
                         {% else %}
-                        <a href="#">{{ page  }}</a>
+                        <span>{{ page  }}</span>
                         {% endif %}
                         {% endfor %}
 
