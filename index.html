@@ -30,13 +30,13 @@ layout: default
                         {% if paginator.total_pages > 1 %}
                         <!-- 分页代码 -->
                         {% if paginator.previous_page %}
-                        <div style="float: left">
+                        <div style="float: left; margin-top: -10px; background-color: #ccc;">
                         <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/'  }}">上一页</a>
                         </div>
                         {% endif %}
 
                         {% if paginator.next_page %}
-                        <div style="float: right">
+                        <div style="float: right; margin-top: -10px; background-color: #ccc;">
                         <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/'  }}">下一页</a>
                         </div>
                         {% endif %}
