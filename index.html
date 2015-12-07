@@ -30,32 +30,15 @@ layout: default
                         <ul class="pager">
                             {% if paginator.total_pages > 1 %}
                             {% if paginator.previous_page %}
-                            <li class="previous disabled"><a href="#">&larr; Older</a></li>
+                            <li class="previous disabled"><a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/'   }}">&larr; Older</a></li>
                             {% endif %}
                             
                             {% if paginator.next_page %}
-                            <li class="next"><a href="#">Newer &rarr;</a></li>
+                            <li class="next"><a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/'   }}">Newer &rarr;</a></li>
                             {% endif %}
                             {% endif %}
                         </ul>
-
-                        <!--  
-                        {% if paginator.total_pages > 1 %}
-                        <!-- 分页代码 -->
-                        {% if paginator.previous_page %}
-                        <div style="float: left; margin-top: -10px; background-color: #ccc;">
-                            <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/'  }}">上一页</a>
-                        </div>
-                        {% endif %}
-
-                        {% if paginator.next_page %}
-                        <div style="float: right; margin-top: -10px; background-color: #ccc;">
-                            <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/'  }}">下一页</a>
-                        </div>
-                        {% endif %}
-                        {% endif %}-->
                     </div>
-
 
                 </div>
                 <!-- <div class="posts-in-categories"> -->
