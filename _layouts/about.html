@@ -2,23 +2,6 @@
 layout: default
 ---
 <div class="row">
-    <div class="col-sm-3">
-        <div class="shadow-corner-curl hidden-xs">
-            <div class="categories-list-header">
-                Categories
-            </div>
-
-            <a href="javascript:;" class="categories-list-item" cate="All">
-                All<span class="my-badge"> {{site.posts | size}}</span>
-            </a>
-            {% for category in site.categories %}
-            <a href="javascript:;" class="categories-list-item" cate="{{ category | first  }}">
-                {{ category | first  }} <span class="my-badge">{{ category | last | size  }}</span>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-
 
     <div class="post-area post col-sm-9">
         <header>
@@ -29,6 +12,25 @@ layout: default
             {{ content }}
         </article>
     </div>
+
+    <div class="col-sm-3">
+        <div class="shadow-corner-curl hidden-xs">
+            <div class="categories-list-header">
+                Categories
+            </div>
+
+            <a href="javascript:;" class="categories-list-item" cate="All">
+                All<span class="my-badge"> {{site.posts | size}}</span>
+            </a>
+            {% for category in site.categories %}
+            <a href="javascript:;" class="categories-list-item" cate="{{ category | first   }}">
+                {{ category | first   }} <span class="my-badge">{{ category | last | size   }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+
     <div class="post-area post comment col-sm-9">
         <div id="disqus_thread"></div>
 
