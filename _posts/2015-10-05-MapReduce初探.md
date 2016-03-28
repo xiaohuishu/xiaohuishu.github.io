@@ -2,7 +2,7 @@
 layout: post
 title: "MapReduce初探"
 date: 2015-10-05
-categories: hadoop
+categories: Hadoop
 excerpt: MapReduce工作流程
 ---
 
